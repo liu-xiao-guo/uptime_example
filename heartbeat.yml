@@ -1,0 +1,35 @@
+heartbeat.config.monitors:
+  # Directory + glob pattern to search for configuration files
+  path: ${path.config}/monitors.d/*.yml
+  # If enabled, heartbeat will periodically check the config.monitors path for changes
+  reload.enabled: false
+  # How often to check for changes
+  reload.period: 5s
+
+setup.template.settings:
+  index.number_of_shards: 1
+  index.codec: best_compression
+
+tags: ["dev-web-services"]
+
+fields:
+  env: dev
+
+setup.kibana:
+
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: ["localhost:9200"]
+
+processors:
+  - add_observer_metadata:
+    netinfo.enabled: false
+    cache.ttl: 5m
+    geo:
+      name: dev-dc-1
+      location: 40.7128, -74.0060
+      continent_name: North America
+      country_iso_code: US
+      region_name: Atlanta
+      region_iso_code: GA
+      city_name: Rosewell
